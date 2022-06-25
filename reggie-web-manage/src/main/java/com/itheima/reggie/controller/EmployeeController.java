@@ -1,14 +1,10 @@
 package com.itheima.reggie.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.Constant;
 import com.itheima.reggie.common.ResultInfo;
-import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Employee;
 import com.itheima.reggie.service.EmployeeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +14,7 @@ import java.util.Map;
 
 // 内部员工模块
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
@@ -26,7 +23,7 @@ public class EmployeeController {
     @Autowired
     HttpSession session;
 
-    @PostMapping("/employee/login")
+    @PostMapping("/login")
     public ResultInfo login(@RequestBody Map<String, String> param) {
         // 1.接收请求参数
         String username = param.get("username");
@@ -43,7 +40,7 @@ public class EmployeeController {
     }
 
     // 退出
-    @PostMapping("/employee/logout")
+    @PostMapping("/logout")
     public ResultInfo logout(){
         // 1.清除session
         session.invalidate();
@@ -52,7 +49,7 @@ public class EmployeeController {
     }
 
     // 分页查找
-    @GetMapping("/employee/page")
+    @GetMapping("/page")
     public ResultInfo findByPage(
             @RequestParam(value = "page", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
@@ -63,20 +60,19 @@ public class EmployeeController {
 
         // 3.返回结果
         return ResultInfo.success(page);
-
     }
 
     //新增员工
-    @PostMapping("/employee")
+    @PostMapping
     public ResultInfo save(@RequestBody Employee employee){
         //调用service完成功能
         employeeService.save(employee);
         //返回添加结果
-        return ResultInfo.success(null);
+        return ResultInfo.success("新增成功");
     }
 
     // 回显员工（根据id查询）
-    @GetMapping("/employee/{id}")
+    @GetMapping("/{id}")
     public ResultInfo findById(@PathVariable Long id) { // 1.接收参数
         // 2.调用serivce
         Employee employee = employeeService.findById(id);
@@ -85,11 +81,11 @@ public class EmployeeController {
     }
 
     // 修改员工
-    @PutMapping("/employee")
+    @PutMapping
     public ResultInfo update(@RequestBody Employee employee) { // 1.接收参数
         // 2.调用serivce修改
         employeeService.update(employee);
         // 3.返回结果
-        return ResultInfo.success(null);
+        return ResultInfo.success("修改成功");
     }
 }

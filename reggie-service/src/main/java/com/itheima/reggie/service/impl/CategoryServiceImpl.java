@@ -1,18 +1,24 @@
 package com.itheima.reggie.service.impl;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Category;
+import com.itheima.reggie.domain.Employee;
 import com.itheima.reggie.mapper.CategoryMapper;
 import com.itheima.reggie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.management.Query;
 import java.util.List;
 
@@ -20,13 +26,19 @@ import java.util.List;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
+    @Resource
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> findAll() {
-        QueryWrapper<Category> wrapper = new QueryWrapper<>();
-        return categoryMapper.selectList(wrapper);
+    public Page<Category> findByPage(Integer pageNum, Integer pageSize, String name) {
+        // 1.查询条件封装
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StrUtil.isNotEmpty(name), Category::getName, name);
+        // 2.分页条件封装
+        Page<Category> page = new Page<>(pageNum, pageSize);
+        // 3.执行mapper查询
+        page = categoryMapper.selectPage(page, wrapper);
+        return page; // 菜品（分类、口味）
     }
 
     // 新增分类
@@ -34,31 +46,30 @@ public class CategoryServiceImpl implements CategoryService {
     public void save(Category category) {
         // 1.补齐参数
         // 1-1 id
-//        long id = IdUtil.getSnowflake(1, 1).nextId();
-//        category.setId(id);
+        long id = IdUtil.getSnowflake(1, 1).nextId();
+        category.setId(id);
         // 1-2 创建、更新时间
-//        category.setCreateTime(new Date());
-//        category.setUpdateTime(new Date());
+        //category.setCreateTime(new Date());
+        //category.setUpdateTime(new Date());
         // 1-3 创建、更新人
-//        category.setCreateUser(1L); // 暂时写死1L
-//        category.setUpdateUser(1L);// 暂时写死1L
+        //category.setCreateUser(1L); // 暂时写死1L
+        //category.setUpdateUser(1L);// 暂时写死1L
 
         // 2.调用mapper新增
         categoryMapper.insert(category);
-//        categoryMapper.save(category);
+        //categoryMapper.save(category);
     }
 
     // 修改分类
     @Override
     public void update(Category category) {
         // 1.补齐参数
-//        category.setUpdateTime(new Date());
-//        category.setUpdateUser(1l);// 暂时写死
+        // category.setUpdateTime(new Date());
+        // category.setUpdateUser(1l);// 暂时写死
 
         //LambdaUpdateWrapper<Category> wrapper = Wrappers.lambdaUpdate(new Category());
         // 2.调用mapper修改
         categoryMapper.update(category);
-//        categoryMapper.update(category);
     }
 
     @Override

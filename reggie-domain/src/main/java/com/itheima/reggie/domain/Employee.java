@@ -40,8 +40,8 @@ public class Employee implements Serializable {
 
     private Integer status;//状态 0:禁用 1:正常
 
-//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-        @TableField(fill = FieldFill.INSERT)  //在更新时自动填充
+    //@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)  //在更新时自动填充
     private Date createTime;//创建时间
 
     //@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

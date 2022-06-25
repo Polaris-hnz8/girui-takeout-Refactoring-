@@ -6,10 +6,6 @@ import com.itheima.reggie.domain.Category;
 import java.util.List;
 
 public interface CategoryMapper extends BaseMapper<Category> {
-
-    // 查询所有
-    List<Category> findAll();
-
     //新增
     void save(Category category);
 

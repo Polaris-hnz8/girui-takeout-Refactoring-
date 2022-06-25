@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d9e5f12-f9ad-4652-874e-06a2423806bd" name="Default Changelist" comment="# head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&#10;# - type: feat, fix, docs, style, refactor, test, chore&#10;# - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)&#10;# - subject: start with verb (such as 'change'), 50-character line&#10;#&#10;# body: 72-character wrapped. This should answer:&#10;# * Why was this change necessary?&#10;# * How does it address the problem?&#10;# * Are there any side effects?&#10;#&#10;# footer: &#10;# - Include a link to the ticket, if any.&#10;# - BREAKING CHANGE&#10;#" />
+    <list default="true" id="8d9e5f12-f9ad-4652-874e-06a2423806bd" name="Default Changelist" comment="# head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&#10;# - type: feat, fix, docs, style, refactor, test, chore&#10;# - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)&#10;# - subject: start with verb (such as 'change'), 50-character line&#10;#&#10;# body: 72-character wrapped. This should answer:&#10;# * Why was this change necessary?&#10;# * How does it address the problem?&#10;# * Are there any side effects?&#10;#&#10;# footer: &#10;# - Include a link to the ticket, if any.&#10;# - BREAKING CHANGE&#10;#">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e592041-8e4a-4e69-95a2-1de1155d21a0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e592041-8e4a-4e69-95a2-1de1155d21a0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-domain/src/main/java/com/itheima/reggie/domain/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-domain/src/main/java/com/itheima/reggie/domain/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-domain/src/main/java/com/itheima/reggie/domain/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-domain/src/main/java/com/itheima/reggie/domain/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-mapper/src/main/java/com/itheima/reggie/mapper/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-mapper/src/main/java/com/itheima/reggie/mapper/CategoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-mapper/src/main/resources/mappers/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-mapper/src/main/resources/mappers/CategoryMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-mapper/src/main/resources/mappers/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-mapper/src/main/resources/mappers/EmployeeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-mapper/target/classes/mappers/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-mapper/target/classes/mappers/CategoryMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-mapper/target/classes/mappers/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-mapper/target/classes/mappers/EmployeeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-service/src/main/java/com/itheima/reggie/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-service/src/main/java/com/itheima/reggie/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-service/src/main/java/com/itheima/reggie/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-service/src/main/java/com/itheima/reggie/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-web-manage/src/main/java/com/itheima/reggie/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-web-manage/src/main/java/com/itheima/reggie/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reggie-web-manage/src/main/java/com/itheima/reggie/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/reggie-web-manage/src/main/java/com/itheima/reggie/controller/EmployeeController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +62,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -73,7 +90,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/reggie-web-manage/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.16133004" />
@@ -139,6 +156,8 @@
       <workItem from="1656065596954" duration="4064000" />
       <workItem from="1656070752268" duration="11209000" />
       <workItem from="1656124445818" duration="1829000" />
+      <workItem from="1656156317839" duration="3223000" />
+      <workItem from="1656165333620" duration="387000" />
     </task>
     <task id="LOCAL-00001" summary="环境配置与登录">
       <created>1655789742083</created>

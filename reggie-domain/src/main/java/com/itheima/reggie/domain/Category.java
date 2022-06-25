@@ -40,7 +40,7 @@ public class Category implements Serializable {
     private Long updateUser;//修改人
 
     //标识的逻辑删除字段
-    @TableLogic(value = "1",delval = "0")
-    private Integer deleted;
+//    @TableLogic(value = "1",delval = "0")
+//    private Integer deleted;
 
 }

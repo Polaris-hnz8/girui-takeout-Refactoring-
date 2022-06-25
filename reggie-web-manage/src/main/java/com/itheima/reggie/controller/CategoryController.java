@@ -1,7 +1,9 @@
 package com.itheima.reggie.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Category;
+import com.itheima.reggie.domain.Employee;
 import com.itheima.reggie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +17,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     // 分类列表
-    @GetMapping("/category/findAll")
-    public ResultInfo findAll() {
+    @GetMapping("/category/page")
+    public ResultInfo findByPage(
+            @RequestParam(value = "page", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            String name) { // 1.接收参数
         // 1.调用service查询
-        List<Category> list = categoryService.findAll();
+        Page<Category> page = categoryService.findByPage(pageNum, pageSize, name);
         // 2.返回resultInfo结果
-        return ResultInfo.success(list);
+        return ResultInfo.success(page);
     }
 
     // 新增分类
@@ -31,7 +36,7 @@ public class CategoryController {
         categoryService.save(category);
 
         // 3.返回resultInfo结果
-        return ResultInfo.success(null);
+        return ResultInfo.success("新增分类成功!");
     }
 
     // 修改分类
