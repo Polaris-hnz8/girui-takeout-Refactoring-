@@ -20,4 +20,7 @@ public interface CategoryService {
 
     // 删除分类
     ResultInfo delete(Long id);
+
+    // 根据type查询分类列表
+    List<Category> findByType(Integer type);
 }

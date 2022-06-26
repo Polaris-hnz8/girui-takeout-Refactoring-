@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
         // 1.查询条件封装
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StrUtil.isNotEmpty(name), Category::getName, name);
+        wrapper.orderByAsc(Category::getSort);
         // 2.分页条件封装
         Page<Category> page = new Page<>(pageNum, pageSize);
         // 3.执行mapper查询
@@ -89,5 +90,19 @@ public class CategoryServiceImpl implements CategoryService {
         //3. 当前分类下什么都没有,可以删除
         categoryMapper.deleteById(id);
         return ResultInfo.success(null);
+    }
+
+    /**
+     * 根据type查询分类列表
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> findByType(Integer type) {
+        // 1.构建查询条件
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Category::getType, type);//type值进行对比
+        // 2.调用mapper查询
+        return categoryMapper.selectList(wrapper);
     }
 }

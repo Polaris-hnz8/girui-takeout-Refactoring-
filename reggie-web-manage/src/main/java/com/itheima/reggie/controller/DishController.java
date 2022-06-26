@@ -3,11 +3,10 @@ package com.itheima.reggie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Dish;
+import com.itheima.reggie.domain.Employee;
 import com.itheima.reggie.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DishController {
@@ -15,7 +14,13 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    // 菜品分页查询
+    /**
+     * 菜品分页查询
+     * @param pageNum
+     * @param pageSize
+     * @param name
+     * @return
+     */
     @GetMapping("/dish/page")
     public ResultInfo findByPage(
             @RequestParam(value = "page", defaultValue = "1") Integer pageNum,
@@ -27,6 +32,18 @@ public class DishController {
 
         // 3.返回结果
         return ResultInfo.success(page);
+    }
 
+    /**
+     * 新增菜品
+     * @param dish
+     * @return
+     */
+    @PostMapping("/dish")
+    public ResultInfo save(@RequestBody Dish dish) { // 1.接收参数
+        // 2.调用serivce保存
+        dishService.save(dish);
+        // 3.返回成功结果
+        return ResultInfo.success(null);
     }
 }

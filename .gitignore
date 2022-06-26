@@ -1,4 +1,19 @@
+### Example user template template
+
+.git
+
+# IntelliJ project files
+.idea
+*.iml
+*.iws
+*.mli
+*.ipr
+out
+gen
+
 # Compiled class file
+test/
+target/
 *.class
 
 # Log file
@@ -21,3 +36,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+

@@ -6,9 +6,13 @@ spring:
   datasource: # 数据源配置
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/reggie?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+      url: jdbc:mysql://localhost:3306/reggiebackup?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
       username: root
       password: 20001201
+  servlet:
+    multipart:
+      max-request-size: 100MB # 最大请求文件大小,默认10MB
+      max-file-size: 10MB # 单个请求文件大小,默认1MB
 
 mybatis-plus:
   configuration:
@@ -18,3 +22,11 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID # id生成策略类型
+
+reggie:
+  oss:
+    key: LTAI5tNavR1qMJ9C8CkCB6MP
+    secret: QwSbMRDzxf6tRCufLc69OcJJCUyA7O
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    bucket: mains19
+    url: https://mains19.oss-cn-hangzhou.aliyuncs.com

@@ -16,6 +16,15 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    // 根据type查询分类列表
+    @GetMapping("/category/list")
+    public ResultInfo categoryList(Integer type) { // 1.接收请求参数Get请求的方法的参数可以单独接收
+        // 2.调用service查询
+        List<Category> list = categoryService.findByType(type);
+        // 3.返回结果
+        return ResultInfo.success(list);
+    }
+
     // 分类列表
     @GetMapping("/category/page")
     public ResultInfo findByPage(
