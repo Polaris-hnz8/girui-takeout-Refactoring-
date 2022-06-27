@@ -46,4 +46,18 @@ public class DishController {
         // 3.返回成功结果
         return ResultInfo.success(null);
     }
+
+    /**
+     * 菜品详情回显
+     * @param id
+     * @return
+     */
+    @GetMapping("/dish/{id}") // 前面没有#
+    public ResultInfo findById(@PathVariable Long id) { // 1.接收菜品id
+        // 2.调用service查询
+        Dish dish = dishService.findById(id);
+        // 3.返回结果
+        return ResultInfo.success(dish);
+    }
+
 }

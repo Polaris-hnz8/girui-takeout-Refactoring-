@@ -93,4 +93,20 @@ public class DishServiceImpl implements DishService {
             }
         }
     }
+
+    @Override
+    public Dish findById(Long id) {
+        // 1.先查菜品基本信息
+        Dish dish = dishMapper.selectById(id);
+        // 2.再查询口味列表
+        // （1）构建口味的查询条件对象
+        LambdaQueryWrapper<DishFlavor> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DishFlavor::getDishId, id);
+        // （2）查询列表
+        List<DishFlavor> flavorList = dishFlavorMapper.selectList(wrapper);
+        // （3）将口味列表设置到菜品对象中
+        dish.setFlavors(flavorList);
+        // （4）返回菜品对象
+        return dish;
+    }
 }

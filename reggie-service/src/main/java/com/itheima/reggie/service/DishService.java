@@ -10,4 +10,7 @@ public interface DishService {
 
     // 新增菜品
     void save(Dish dish);
+
+    // 菜品回显
+    Dish findById(Long id);
 }
