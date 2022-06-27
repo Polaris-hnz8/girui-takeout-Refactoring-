@@ -2,14 +2,18 @@ package com.itheima.reggie.common;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.OutputStream;
 
 //阿里存储工具类
 @Component
@@ -23,7 +27,12 @@ public class OssTemplate {
     private String bucket;//桶名
     private String url;//访问域名
 
-    //文件上传
+    /**
+     * 文件上传
+     * @param fileName
+     * @param inputStream
+     * @return
+     */
     public String upload(String fileName, InputStream inputStream) {
 
         //1.创建客户端
@@ -44,6 +53,27 @@ public class OssTemplate {
         ossClient.shutdown();
 
         return url + "/" + objectName;
+    }
+
+    /**
+     * 文件下载
+     * @param objectName
+     * @return
+     */
+    public InputStream download(String objectName) throws IOException {
+        //1.创建客户端
+        OSS ossClient = new OSSClientBuilder().build(endpoint, key, secret);
+
+        //2.下载
+        OSSObject ossObject = ossClient.getObject(bucket, objectName);
+        InputStream inputStream = ossObject.getResponse().getContent();
+
+        //3.关闭客户端
+        ossObject.close();
+        ossClient.shutdown();
+
+        //4.返回下载到的流式文件
+        return inputStream;
     }
 
     //文件后缀处理
