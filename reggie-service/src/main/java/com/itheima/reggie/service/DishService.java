@@ -13,4 +13,7 @@ public interface DishService {
 
     // 菜品回显
     Dish findById(Long id);
+
+    // 菜品修改
+    void update(Dish dish);
 }

@@ -109,4 +109,32 @@ public class DishServiceImpl implements DishService {
         // （4）返回菜品对象
         return dish;
     }
+
+    /**
+     * 菜品修改
+     * @param dish
+     */
+    @Override
+    public void update(Dish dish) {
+        // 1.先更新菜品基本信息
+        dishMapper.updateById(dish);
+
+        // 2.删除菜品原有的口味
+        // （1）构建口味条件对象
+        LambdaQueryWrapper<DishFlavor> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DishFlavor::getDishId, dish.getId());
+        // （2）执行mapper删除
+        dishFlavorMapper.delete(wrapper);
+
+        // 3.遍历前端提交的口味List
+        List<DishFlavor> flavorList = dish.getFlavors();
+        if (CollectionUtil.isNotEmpty(flavorList)) {
+            for (DishFlavor dishFlavor : flavorList) {
+                // （1）设置菜品id
+                dishFlavor.setDishId(dish.getId());
+                // （2）调用mapper保存口味
+                dishFlavorMapper.insert(dishFlavor);
+            }
+        }
+    }
 }

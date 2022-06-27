@@ -60,4 +60,17 @@ public class DishController {
         return ResultInfo.success(dish);
     }
 
+    /**
+     * 菜品修改
+     * @param dish
+     * @return
+     */
+    @PutMapping("/dish")
+    public ResultInfo update(@RequestBody Dish dish) { // 1.接收请求体参数
+        // 2.调用service修改
+        dishService.update(dish);
+        // 3.返回成功消息
+        return ResultInfo.success(null);
+    }
+
 }
