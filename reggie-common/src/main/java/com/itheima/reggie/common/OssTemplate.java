@@ -2,18 +2,12 @@ package com.itheima.reggie.common;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 //阿里存储工具类
 @Component
@@ -29,17 +23,20 @@ public class OssTemplate {
 
     /**
      * 文件上传
-     * @param fileName
+     * @param originalFilename
      * @param inputStream
      * @return
      */
-    public String upload(String fileName, InputStream inputStream) {
+    public String upload(String originalFilename, InputStream inputStream) {
 
         //1.创建客户端
         OSS ossClient = new OSSClientBuilder().build(endpoint, key, secret);
 
         //2.设置文件最终的路径和名称
         //String objectName = "images/" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "/" + System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //使用UUID为上传的文件重新生成新的文件名，防止文件名重复造成文件覆盖(生成随机的30多位的字符串)
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String fileName = System.currentTimeMillis() + suffix;
         String objectName = "reggie/" + fileName;
 
         //3.meta设置请求头,解决访问图片地址直接下载
@@ -55,26 +52,26 @@ public class OssTemplate {
         return url + "/" + objectName;
     }
 
-    /**
-     * 文件下载
-     * @param objectName
-     * @return
-     */
-    public InputStream download(String objectName) throws IOException {
-        //1.创建客户端
-        OSS ossClient = new OSSClientBuilder().build(endpoint, key, secret);
-
-        //2.下载
-        OSSObject ossObject = ossClient.getObject(bucket, objectName);
-        InputStream inputStream = ossObject.getResponse().getContent();
-
-        //3.关闭客户端
-        ossObject.close();
-        ossClient.shutdown();
-
-        //4.返回下载到的流式文件
-        return inputStream;
-    }
+//    /**
+//     * 文件下载
+//     * @param objectName
+//     * @return
+//     */
+//    public InputStream download(String objectName) throws IOException {
+//        //1.创建客户端
+//        OSS ossClient = new OSSClientBuilder().build(endpoint, key, secret);
+//
+//        //2.下载
+//        OSSObject ossObject = ossClient.getObject(bucket, objectName);
+//        InputStream inputStream = ossObject.getResponse().getContent();
+//
+//        //3.关闭客户端
+//        ossObject.close();
+//        ossClient.shutdown();
+//
+//        //4.返回下载到的流式文件
+//        return inputStream;
+//    }
 
     //文件后缀处理
     private String getContentType(String FilenameExtension) {
