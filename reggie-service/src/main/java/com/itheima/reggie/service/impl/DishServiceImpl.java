@@ -137,4 +137,20 @@ public class DishServiceImpl implements DishService {
             }
         }
     }
+
+    /**
+     * 根据分类id查询菜品列表
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> findListByCategoryId(Long categoryId) {
+        // 1.构建条件
+        LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Dish::getCategoryId, categoryId ); // category_id = xxx
+        wrapper.eq(Dish::getStatus, 1); // statuas = 1
+
+        // 2.查询list
+        return dishMapper.selectList(wrapper);
+    }
 }

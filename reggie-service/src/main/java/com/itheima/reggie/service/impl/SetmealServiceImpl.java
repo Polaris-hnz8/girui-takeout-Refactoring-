@@ -11,12 +11,14 @@ import com.itheima.reggie.mapper.CategoryMapper;
 import com.itheima.reggie.mapper.SetmealDishMapper;
 import com.itheima.reggie.mapper.SetmealMapper;
 import com.itheima.reggie.service.SetmealService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 public class SetmealServiceImpl implements SetmealService {
@@ -71,4 +73,27 @@ public class SetmealServiceImpl implements SetmealService {
         // 5.返回结果
         return page;
     }
+
+    /**
+     * 套餐新增
+     * @param setmeal
+     */
+    @Override
+    public void save(Setmeal setmeal) {
+        // 1.先保存套餐基本信息
+        setmealMapper.insert(setmeal);
+        log.info("保存套餐基本信息，id：{},名称：{},价格：{}", setmeal.getId(),setmeal.getName(),setmeal.getPrice());
+
+        // 2.取出套餐菜品列表
+        List<SetmealDish> dishList = setmeal.getSetmealDishes();
+        if (CollectionUtil.isNotEmpty(dishList)) {
+            for (SetmealDish setmealDish : dishList) {
+                // 关联套餐id
+                setmealDish.setSetmealId(setmeal.getId());
+                // 保存套餐菜品
+                setmealDishMapper.insert(setmealDish);
+            }
+        }
+    }
 }
+

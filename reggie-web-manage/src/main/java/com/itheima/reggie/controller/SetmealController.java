@@ -6,9 +6,7 @@ import com.itheima.reggie.domain.Setmeal;
 import com.itheima.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -34,5 +32,20 @@ public class SetmealController {
 
         // 2.返回结果
         return ResultInfo.success(page);
+    }
+
+    /**
+     * 新增套餐
+     * @param setmeal
+     * @return
+     */
+    @PostMapping("/setmeal")
+    public ResultInfo save(@RequestBody Setmeal setmeal) {
+        // 1.调用service
+        setmealService.save(setmeal);
+
+        // 2.返回结果
+        return ResultInfo.success("新增套餐成功");
+
     }
 }

@@ -8,6 +8,8 @@ import com.itheima.reggie.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class DishController {
 
@@ -48,7 +50,7 @@ public class DishController {
     }
 
     /**
-     * 菜品详情回显
+     * 单个菜品详情回显
      * @param id
      * @return
      */
@@ -71,6 +73,17 @@ public class DishController {
         dishService.update(dish);
         // 3.返回成功消息
         return ResultInfo.success(null);
+    }
+
+    /**
+     * 根据分类id查询菜品列表（给新增套餐信息回显使用）
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/dish/list")
+    public ResultInfo findList(Long categoryId){
+        List<Dish> dishList = dishService.findListByCategoryId(categoryId);
+        return ResultInfo.success(dishList);
     }
 
 }
