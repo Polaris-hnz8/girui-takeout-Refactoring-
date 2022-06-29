@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.domain.Category;
 import com.itheima.reggie.domain.Setmeal;
 import com.itheima.reggie.domain.SetmealDish;
@@ -94,6 +95,30 @@ public class SetmealServiceImpl implements SetmealService {
                 setmealDishMapper.insert(setmealDish);
             }
         }
+    }
+
+    @Override
+    public void deleteBatchIds(List<Long> ids) {
+        // 1.先判断套餐状态
+        //（1）构建套餐条件对象
+        LambdaQueryWrapper<Setmeal> setmealWrapper = new LambdaQueryWrapper<>();
+        setmealWrapper.in(Setmeal::getId, ids);
+        setmealWrapper.eq(Setmeal::getStatus, 1);
+        //（2）查询套餐数量
+        Integer count = setmealMapper.selectCount(setmealWrapper);
+        if (count > 0) {
+            throw new CustomException("删除的套餐状态必须为停售");
+        }
+
+        // 2.再删除套餐
+        setmealMapper.deleteBatchIds(ids);
+
+        // 3.最后删除套餐菜品
+        //（1）构建套餐菜品条件对象
+        LambdaQueryWrapper<SetmealDish> sdWrapper = new LambdaQueryWrapper<>();
+        sdWrapper.in(SetmealDish::getSetmealId, ids);
+        //（2）条件删除
+        setmealDishMapper.delete(sdWrapper);
     }
 }
 

@@ -1,5 +1,6 @@
 package com.itheima.reggie.controller;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Setmeal;
@@ -7,6 +8,8 @@ import com.itheima.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -46,6 +49,22 @@ public class SetmealController {
 
         // 2.返回结果
         return ResultInfo.success("新增套餐成功");
-
     }
+
+    /**
+     * 套餐删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/setmeal")
+    public ResultInfo deleteBatchIds(@RequestParam List<Long> ids) {
+        //1.调用serivce删除
+        if (CollectionUtil.isNotEmpty(ids)) {
+            setmealService.deleteBatchIds(ids);
+        }
+
+        //2.返回结果
+        return ResultInfo.success(null);
+    }
+
 }
