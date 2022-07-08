@@ -62,6 +62,9 @@ public class CartServiceImpl implements CartService {
         return cartMapper.selectList(wrapper);
     }
 
+    /**
+     * 清空购物车
+     */
     @Override
     public void cartClean() {
         // 1.构建条件
