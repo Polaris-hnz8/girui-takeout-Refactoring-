@@ -75,6 +75,18 @@ public class SetmealServiceImpl implements SetmealService {
         return page;
     }
 
+    @Override
+    public List<Setmeal> setmealList(Long categoryId) {
+        // 1.构建条件
+        LambdaQueryWrapper<Setmeal> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Setmeal::getCategoryId, categoryId);
+        wrapper.eq(Setmeal::getStatus, 1);
+        // 2.执行查询
+        List<Setmeal> setmealList = setmealMapper.selectList(wrapper);
+        // 3.返回结果
+        return setmealList;
+    }
+
     /**
      * 套餐新增
      * @param setmeal

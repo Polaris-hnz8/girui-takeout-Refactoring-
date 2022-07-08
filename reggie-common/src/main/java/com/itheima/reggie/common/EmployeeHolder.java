@@ -6,8 +6,6 @@ import com.itheima.reggie.domain.Employee;
 public class EmployeeHolder {
 
     private static final ThreadLocal<Employee> TL= new ThreadLocal<>();
-
-
     // 设置
     public static void set(Employee employee){
         TL.set(employee);

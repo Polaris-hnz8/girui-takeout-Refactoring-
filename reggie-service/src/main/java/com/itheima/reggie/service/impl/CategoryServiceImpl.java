@@ -105,4 +105,10 @@ public class CategoryServiceImpl implements CategoryService {
         // 2.调用mapper查询
         return categoryMapper.selectList(wrapper);
     }
+
+    @Override
+    public List<Category> findAll() {
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        return categoryMapper.selectList(wrapper);
+    }
 }

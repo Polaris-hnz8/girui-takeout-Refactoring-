@@ -23,4 +23,7 @@ public interface CategoryService {
 
     // 根据type查询分类列表
     List<Category> findByType(Integer type);
+
+    //提供给移动端直接查询所有的菜品dish与套餐setmeal的方法
+    List<Category> findAll();
 }
