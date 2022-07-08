@@ -62,4 +62,13 @@ public class CartServiceImpl implements CartService {
         return cartMapper.selectList(wrapper);
     }
 
+    @Override
+    public void cartClean() {
+        // 1.构建条件
+        LambdaQueryWrapper<Cart> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Cart::getUserId,UserHolder.get().getId() );
+
+        // 2.删除购物车
+        cartMapper.delete(wrapper);
+    }
 }

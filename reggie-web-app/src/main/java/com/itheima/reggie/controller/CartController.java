@@ -40,4 +40,17 @@ public class CartController {
         // 2.返回结果
         return ResultInfo.success(cartList);
     }
+
+    /**
+     * 清空购物车
+     * @return
+     */
+    @DeleteMapping("/clean")
+    public ResultInfo cartClean(){
+        // 1.调用service删除
+        cartService.cartClean();
+
+        // 2.返回成功
+        return ResultInfo.success("清空购物车成功");
+    }
 }
