@@ -65,21 +65,23 @@ public class UserController {
         // TODO 在学习redis之前 我们的验证码判断 暂时在controller中解决
         String codeFromSession = (String) session.getAttribute("phone_sms:" + phone);
 
-        //3.进行数据的比对（页面中提交的code与session中保存的code是否相同？）
+        //3.在判断输入的验证码与提供的验证码是否一致（页面中提交的code与session中保存的code是否相同？）
         if (!StrUtil.equals(code, codeFromSession)) {
-            throw new CustomException("验证码不一致.....");
+            throw new CustomException("无效验证码");
         }
 
-        // 4.调用service登录
+        //4.调用service登录
         ResultInfo resultInfo = userService.login(code, phone);
 
-        // 5.如果登录成功，通过resultInfo判断是否登录成功，将
+        //5.通过resultInfo判断是否登录成功，如果登录成功将user放入session中进入登录状态
         if (resultInfo.getCode() == 1) {
             User user = (User) resultInfo.getData();
             session.setAttribute(Constant.SESSION_USER, user);
+            //当登录完成后验证码应该立即失效
+            session.removeAttribute("phone_sms:" + phone);
         }
 
-        // 5.返回用户用户结果
+        //6.返回用户用户结果
         return resultInfo;
     }
 

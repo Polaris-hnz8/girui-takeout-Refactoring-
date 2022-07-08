@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
             // 4.已经注册则直接进行登录操作
             if (user.getStatus() != 1) {//判断状态是否为禁用
                 throw new CustomException("此用户已被禁用，请联系企业客服~~");
-                //return ResultInfo.error("此用户已被禁用，请联系企业客服~~");
             }
         }
 
