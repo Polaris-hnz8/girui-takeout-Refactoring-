@@ -1,6 +1,8 @@
 package com.itheima.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.itheima.reggie.common.CustomException;
+import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.common.UserHolder;
 import com.itheima.reggie.domain.Address;
 import com.itheima.reggie.mapper.AddressMapper;
@@ -45,4 +47,49 @@ public class AddressServiceImpl implements AddressService {
         // 2.mapper保存
         addressMapper.insert(address);
     }
+
+    /**
+     * 设置默认地址
+     * @param id
+     */
+    @Override
+    public void setDefault(Long id) {
+        // 1.先将该用户下的所有地址信息状态更改为0
+        // （1）准备实体
+        Address address1 = new Address();
+        address1.setIsDefault(0);
+        // （2）更新操作
+        LambdaQueryWrapper<Address> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Address::getUserId, UserHolder.get().getId());
+        addressMapper.update(address1, wrapper);
+
+        // 2.再将需要设为默认地址的地址状态更改为1
+        // （1）准备实体
+        Address address2 = new Address();
+        address2.setId(id);
+        address2.setIsDefault(1);
+        // （2）主键更新
+        addressMapper.updateById(address2);
+    }
+
+    /**
+     * 查询用户的默认收货地址（购物车结算时使用）
+     * @return
+     */
+    @Override
+    public Address findDefault() {
+        //1.找到当前用户默认的地址对象
+        LambdaQueryWrapper<Address> addressWrapper = new LambdaQueryWrapper<>();
+        addressWrapper.eq(Address::getUserId, UserHolder.get().getId());
+        addressWrapper.eq(Address::getIsDefault, 1);
+        Address address = addressMapper.selectOne(addressWrapper);
+
+        //2.对查询结果进行判断
+        if (address == null) {
+            throw new CustomException("没有默认地址，请先添加地址!");
+        }
+
+        return address;
+    }
+
 }

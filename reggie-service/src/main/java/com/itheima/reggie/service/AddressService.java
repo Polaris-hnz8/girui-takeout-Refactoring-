@@ -11,4 +11,10 @@ public interface AddressService {
 
     //新增地址
     void save(Address address);
+
+    //设置默认地址
+    void setDefault(Long id);
+
+    //查询用户的默认收货地址（购物车结算时使用）
+    Address findDefault();
 }
