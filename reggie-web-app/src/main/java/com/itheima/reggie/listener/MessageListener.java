@@ -46,7 +46,7 @@ public class MessageListener implements HttpSessionListener, HttpSessionAttribut
 //                    session.removeAttribute(key);
 //                }
 //            };
-//            （3）计时5分钟
+//            //（3）计时5分钟
 //            timer.schedule(task,1000*60*5);
 
             //改成匿名内部类
@@ -60,8 +60,7 @@ public class MessageListener implements HttpSessionListener, HttpSessionAttribut
                         log.info("session中的验证码：{}失效了！", key);
                     }
                 }
-            //}, 1000 * 60 * 5);
-            }, 1000 * 5);
+            }, 1000 * 60 * 5);
         }
     }
 }
