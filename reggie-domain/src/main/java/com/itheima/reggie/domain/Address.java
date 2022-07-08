@@ -9,7 +9,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-
 //地址簿
 @Data
 @TableName("address_book")
