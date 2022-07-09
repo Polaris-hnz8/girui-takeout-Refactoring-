@@ -28,4 +28,6 @@ public interface DishService {
     // 根据分类id查询菜品列表
     List<Dish> findListByCategoryId(Long categoryId);
 
+    //菜品模糊查询
+    List<Dish> findByName(String name);
 }

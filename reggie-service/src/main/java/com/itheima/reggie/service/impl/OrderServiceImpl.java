@@ -1,13 +1,18 @@
 package com.itheima.reggie.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.UserHolder;
 import com.itheima.reggie.domain.*;
 import com.itheima.reggie.mapper.AddressMapper;
 import com.itheima.reggie.mapper.OrderDetailMapper;
 import com.itheima.reggie.mapper.OrderMapper;
+import com.itheima.reggie.mapper.UserMapper;
 import com.itheima.reggie.service.CartService;
 import com.itheima.reggie.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,10 @@ import java.util.List;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private UserMapper userMapper;
+
     @Autowired
     private CartService cartService;
 
@@ -94,5 +103,40 @@ public class OrderServiceImpl implements OrderService {
 
         // 6.清空购物车
         cartService.cartClean();
+    }
+
+    /**
+     * 订单分页显示
+     * @param pageNum
+     * @param pageSize
+     * @param number
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public Page<Order> findByPage(Integer pageNum, Integer pageSize, Long number, String beginTime, String endTime) {
+        // 1.查询订单分页数据
+        // (1)查询条件封装
+        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(number != null, Order::getId, number);
+        wrapper.between(beginTime!=null&&endTime!=null, Order::getOrderTime, beginTime, endTime);
+        // (2)订单分页对象封装
+        Page<Order> page = new Page<>(pageNum, pageSize);
+        // (3)执行mapper查询
+        page = orderMapper.selectPage(page, wrapper);
+        // 2.遍历每一个订单对象
+        List<Order> orderList = page.getRecords();
+        if (CollectionUtil.isNotEmpty(orderList)) {
+            for (Order order : orderList) {
+                // 4.查询订单对应的用户名称并封装
+                LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(User::getId, order.getUserId());
+                User user = userMapper.selectOne(queryWrapper);
+                // (3)封装到菜品对象中
+                order.setUserName(user.getName());
+            }
+        }
+        return page; // 菜品（分类、口味）
     }
 }
