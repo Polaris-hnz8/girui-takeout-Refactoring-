@@ -1,6 +1,7 @@
 package com.itheima.reggie.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Setmeal;
 
 import java.util.List;
@@ -14,6 +15,15 @@ public interface SetmealService {
 
     // 新增套餐
     void save(Setmeal setmeal);
+
+    //单个套餐信息回显
+    Setmeal findById(Long id);
+
+    //套餐修改
+    void update(Setmeal setmeal);
+
+    // 套餐启售与停售
+    void updateStatus(Integer status, List<Long> ids);
 
     // 套餐删除
     void deleteBatchIds(List<Long> ids);

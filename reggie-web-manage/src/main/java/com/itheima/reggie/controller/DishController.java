@@ -68,10 +68,39 @@ public class DishController {
      * @return
      */
     @PutMapping("/dish")
-    public ResultInfo update(@RequestBody Dish dish) { // 1.接收请求体参数
-        // 2.调用service修改
+    public ResultInfo update(@RequestBody Dish dish) {
+        // 1.调用service修改
         dishService.update(dish);
-        // 3.返回成功消息
+        // 2.返回成功消息
+        return ResultInfo.success(null);
+    }
+
+    /**
+     * 菜品删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/dish")
+    public ResultInfo deleteBatchIds(@RequestParam List<Long> ids) {
+        // 1.调用service删除
+        dishService.deleteBatchIds(ids);
+
+        //2.返回成功消息
+        return ResultInfo.success(null);
+    }
+
+    /**
+     * 菜品起售与停售
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/dish/status/{status}")
+    public ResultInfo updateStatus(@PathVariable Integer status, @RequestParam List<Long> ids){
+        // 1.调用service改变菜品状态
+        dishService.updateStatus(status,ids);
+
+        // 2.返回成功消息
         return ResultInfo.success(null);
     }
 

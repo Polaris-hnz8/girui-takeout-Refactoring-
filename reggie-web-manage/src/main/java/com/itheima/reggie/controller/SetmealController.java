@@ -3,6 +3,7 @@ package com.itheima.reggie.controller;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
+import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Setmeal;
 import com.itheima.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -52,7 +54,48 @@ public class SetmealController {
     }
 
     /**
-     * 套餐删除
+     * 单个套餐详情回显
+     * @param id
+     * @return
+     */
+    @GetMapping("/setmeal/{id}") //前面没有
+    public ResultInfo findById(@PathVariable Long id) {
+        // 1.调用service查询
+        Setmeal setmeal = setmealService.findById(id);
+        // 2.返回结果
+        return ResultInfo.success(setmeal);
+    }
+
+    /**
+     * 套餐修改
+     * @param setmeal
+     * @return
+     */
+    @PutMapping("/setmeal")
+    public ResultInfo update(@RequestBody Setmeal setmeal) {
+        // 1.调用service修改
+        setmealService.update(setmeal);
+        // 2.返回成功消息
+        return ResultInfo.success(null);
+    }
+
+    /**
+     * 套餐起售与停售
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/setmeal/status/{status}")
+    public ResultInfo updateStatus(@PathVariable Integer status, @RequestParam List<Long> ids){
+        // 1.调用service改变菜品状态
+        setmealService.updateStatus(status,ids);
+
+        // 2.返回成功消息
+        return ResultInfo.success(null);
+    }
+
+    /**
+     * 套餐批量删除
      * @param ids
      * @return
      */
