@@ -98,6 +98,11 @@ public class DishServiceImpl implements DishService {
         }
     }
 
+    /**
+     * 单个菜品回显
+     * @param id
+     * @return
+     */
     @Override
     public Dish findById(Long id) {
         // 1.先查菜品基本信息

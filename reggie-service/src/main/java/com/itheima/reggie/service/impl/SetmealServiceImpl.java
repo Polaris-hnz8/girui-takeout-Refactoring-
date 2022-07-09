@@ -5,10 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.CustomException;
-import com.itheima.reggie.domain.Category;
-import com.itheima.reggie.domain.Dish;
-import com.itheima.reggie.domain.Setmeal;
-import com.itheima.reggie.domain.SetmealDish;
+import com.itheima.reggie.domain.*;
 import com.itheima.reggie.mapper.CategoryMapper;
 import com.itheima.reggie.mapper.SetmealDishMapper;
 import com.itheima.reggie.mapper.SetmealMapper;
@@ -76,6 +73,11 @@ public class SetmealServiceImpl implements SetmealService {
         return page;
     }
 
+    /**
+     * 套餐显示
+     * @param categoryId
+     * @return
+     */
     @Override
     public List<Setmeal> setmealList(Long categoryId) {
         // 1.构建条件
@@ -105,6 +107,57 @@ public class SetmealServiceImpl implements SetmealService {
                 // 关联套餐id
                 setmealDish.setSetmealId(setmeal.getId());
                 // 保存套餐菜品
+                setmealDishMapper.insert(setmealDish);
+            }
+        }
+    }
+
+    /**
+     * 单个套餐信息回显
+     * @param id
+     * @return
+     */
+    @Override
+    public Setmeal findById(Long id) {
+        // 1.先查菜品基本信息
+        Setmeal setmeal = setmealMapper.selectById(id);
+
+        // 2.再查询套餐下的菜品列表
+        // （1）构建菜品的查询条件对象
+        LambdaQueryWrapper<SetmealDish> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SetmealDish::getSetmealId, id);
+        // （2）查询列表
+        List<SetmealDish> setmealDishList = setmealDishMapper.selectList(wrapper);
+        // （3）将菜品列表设置到套餐对象中
+        setmeal.setSetmealDishes(setmealDishList);
+
+        // 3.返回菜品对象
+        return setmeal;
+    }
+
+    /**
+     * 套餐修改
+     * @param setmeal
+     */
+    @Override
+    public void update(Setmeal setmeal) {
+        // 1.先更新套餐基本信息
+        setmealMapper.updateById(setmeal);
+
+        // 2.删除套餐中原有的 菜品套餐联系
+        // （1）构建 套餐菜品联系 条件对象
+        LambdaQueryWrapper<SetmealDish> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SetmealDish::getSetmealId, setmeal.getId());
+        // （2）执行mapper删除
+        setmealDishMapper.delete(wrapper);
+
+        // 3.遍历前端提交的SetmealDishList
+        List<SetmealDish> setmealDishList = setmeal.getSetmealDishes();
+        if (CollectionUtil.isNotEmpty(setmealDishList)) {
+            for (SetmealDish setmealDish : setmealDishList) {
+                // （1）设置套餐id
+                setmealDish.setSetmealId(setmeal.getId());
+                // （2）调用mapper保存口味
                 setmealDishMapper.insert(setmealDish);
             }
         }
