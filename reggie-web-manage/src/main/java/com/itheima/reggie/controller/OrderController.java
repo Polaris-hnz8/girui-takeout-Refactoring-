@@ -2,7 +2,6 @@ package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
-import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Order;
 import com.itheima.reggie.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 
 @Slf4j
 @RestController
@@ -21,10 +18,12 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * 菜品分页查询
+     * 订单分页查询
      * @param pageNum
      * @param pageSize
-     * @param name
+     * @param number
+     * @param beginTime
+     * @param endTime
      * @return
      */
     @GetMapping("/order/page")
