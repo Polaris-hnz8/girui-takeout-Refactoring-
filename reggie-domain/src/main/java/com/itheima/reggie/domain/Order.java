@@ -33,11 +33,11 @@ public class Order implements Serializable {
 
     private String remark; //备注
 
-    private String userName;//用户名
-
     private String phone;//手机号
 
     private String address;//地址
+
+    private String userName;//用户名
 
     private String consignee;//收货人
 

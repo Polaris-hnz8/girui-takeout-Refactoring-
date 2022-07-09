@@ -197,6 +197,11 @@ public class DishServiceImpl implements DishService {
         return dishMapper.selectList(wrapper);
     }
 
+    /**
+     * 菜品模糊查询
+     * @param name
+     * @return
+     */
     @Override
     public List<Dish> findByName(String name) {
         // 1.菜品数据查询
