@@ -29,6 +29,20 @@ public class CartController {
     }
 
     /**
+     * 修改购物车
+     * @param cartParam
+     * @return
+     */
+    @PostMapping("/sub")
+    public ResultInfo cartUpdate(@RequestBody Cart cartParam) {
+        // 1.调用service添加
+        Cart cart = cartService.cartUpdate(cartParam);
+
+        // 2.返回购物车数据
+        return ResultInfo.success(cart);
+    }
+
+    /**
      * 查询购物车列表
      * @return
      */

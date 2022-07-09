@@ -425,7 +425,7 @@
                     if (this.setMealDialog.show) {
                         item.number = res.data.number
                     }
-                    this.getCartData()
+                    await this.getCartData()
                 } else {
                     this.$notify({type: 'warning', message: res.msg});
                 }
@@ -452,7 +452,7 @@
                     if (this.setMealDialog.show) {
                         item.number = (res.data.number === 0 ? undefined : res.data.number)
                     }
-                    this.getCartData()
+                    await this.getCartData()
                 } else {
                     this.$notify({type: 'warning', message: res.msg});
                 }
@@ -482,7 +482,7 @@
                         }
                     })
                     console.log(this.dishList)
-                    this.getCartData()
+                    await this.getCartData()
                 } else {
                     this.$notify({type: 'warning', message: res.msg});
                 }
@@ -500,7 +500,7 @@
                             dish.number = (res.data.number === 0 ? undefined : res.data.number)
                         }
                     })
-                    this.getCartData()
+                    await this.getCartData()
                 } else {
                     this.$notify({type: 'warning', message: res.msg});
                 }

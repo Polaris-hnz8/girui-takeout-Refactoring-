@@ -1,6 +1,7 @@
 package com.itheima.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.UserHolder;
 import com.itheima.reggie.domain.Cart;
 import com.itheima.reggie.mapper.CartMapper;
@@ -73,5 +74,32 @@ public class CartServiceImpl implements CartService {
 
         // 2.删除购物车
         cartMapper.delete(wrapper);
+    }
+
+    /**
+     * 更新购物车
+     * @param cartParam
+     * @return
+     */
+    @Override
+    public Cart cartUpdate(Cart cartParam) {
+        // 1.先查询购物车是否有商品：查询条件为用户id+菜品id、用户id+套餐id
+        // （1）构建条件
+        LambdaQueryWrapper<Cart> cartWrapper = new LambdaQueryWrapper<>();
+        cartWrapper.eq(Cart::getUserId, UserHolder.get().getId()); // 用户id
+        cartWrapper.eq(cartParam.getDishId() != null, Cart::getDishId, cartParam.getDishId()); // 菜品id
+        cartWrapper.eq(cartParam.getSetmealId() != null, Cart::getSetmealId, cartParam.getSetmealId()); // 套餐id
+        // （2）查询记录
+        Cart cart = cartMapper.selectOne(cartWrapper);
+
+        // 2.购物车新增判断
+        cart.setNumber(cart.getNumber() - 1);
+        if (cart.getNumber() == 0) {
+            cartMapper.delete(cartWrapper);
+        } else {
+            cartMapper.updateById(cart);//当有菜品or套餐时数量-1
+        }
+
+        return cart;
     }
 }

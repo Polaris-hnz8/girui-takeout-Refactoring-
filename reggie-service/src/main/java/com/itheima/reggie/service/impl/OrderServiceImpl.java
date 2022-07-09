@@ -42,6 +42,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    /**
+     * 用户下单
+     * @param order
+     */
     @Override
     public void save(Order order) {
         // 1.获取用户信息
