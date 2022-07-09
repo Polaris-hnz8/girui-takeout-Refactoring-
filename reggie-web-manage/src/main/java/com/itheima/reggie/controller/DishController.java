@@ -1,15 +1,20 @@
 package com.itheima.reggie.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Employee;
 import com.itheima.reggie.service.DishService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class DishController {
 
@@ -55,10 +60,10 @@ public class DishController {
      * @return
      */
     @GetMapping("/dish/{id}") // 前面没有#
-    public ResultInfo findById(@PathVariable Long id) { // 1.接收菜品id
-        // 2.调用service查询
+    public ResultInfo findById(@PathVariable Long id) {
+        // 1.调用service查询
         Dish dish = dishService.findById(id);
-        // 3.返回结果
+        // 2.返回结果
         return ResultInfo.success(dish);
     }
 
@@ -105,14 +110,20 @@ public class DishController {
     }
 
     /**
-     * 根据分类id查询菜品列表（给新增套餐信息回显使用）
+     * 1.根据分类id查询菜品列表（给新增套餐信息回显使用）
+     * 2.菜品检索（提供给套餐新增、修改时使用）
      * @param categoryId
+     * @param name
      * @return
      */
     @GetMapping("/dish/list")
-    public ResultInfo findList(Long categoryId){
-        List<Dish> dishList = dishService.findListByCategoryId(categoryId);
+    public ResultInfo findList(Long categoryId, String name){
+        List<Dish> dishList = null;
+        if (StrUtil.isEmpty(name)) {
+            dishList = dishService.findListByCategoryId(categoryId);
+        } else {
+            dishList = dishService.findByName(name);
+        }
         return ResultInfo.success(dishList);
     }
-
 }
