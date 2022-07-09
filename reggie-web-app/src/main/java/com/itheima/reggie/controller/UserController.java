@@ -2,10 +2,7 @@ package com.itheima.reggie.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.itheima.reggie.common.Constant;
-import com.itheima.reggie.common.CustomException;
-import com.itheima.reggie.common.ResultInfo;
-import com.itheima.reggie.common.SmsTemplate;
+import com.itheima.reggie.common.*;
 import com.itheima.reggie.domain.User;
 import com.itheima.reggie.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,11 +37,13 @@ public class UserController {
         // 1.取出手机号，生成6位随机数存入session中
         String phone = param.get("phone");
         String code = RandomUtil.randomNumbers(6);
-        log.info("手机号：{}    短信验证码：{}", phone, code);
         session.setAttribute("phone_sms:" + phone, code); // session中存储
 
         // 2.调用第三方接口发送
-        // smsTemplate.sendSms(phone, code); // TODO 开发期不做短信发送，上线修改回来
+        log.info("手机号：{}    短信验证码：{}", phone, code);
+        if (phone != null) {
+            SmsUtil.sendSms(phone, code);
+        }
 
         // 3.返回成功
         return ResultInfo.success(null);
