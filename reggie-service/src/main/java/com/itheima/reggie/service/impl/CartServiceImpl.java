@@ -1,7 +1,6 @@
 package com.itheima.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.UserHolder;
 import com.itheima.reggie.domain.Cart;
 import com.itheima.reggie.mapper.CartMapper;

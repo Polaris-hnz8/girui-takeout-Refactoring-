@@ -193,8 +193,26 @@ public class DishServiceImpl implements DishService {
         wrapper.eq(Dish::getCategoryId, categoryId ); // category_id = xxx
         wrapper.eq(Dish::getStatus, 1); // statuas = 1
 
-        // 2.查询list
-        return dishMapper.selectList(wrapper);
+        // 2.查询DishList
+        List<Dish> dishList = dishMapper.selectList(wrapper);
+
+        // 3.遍历每一个菜品对象
+        if (CollectionUtil.isNotEmpty(dishList)) {
+            for (Dish dish : dishList) {
+                // 4.查询分类对象
+                Category category = categoryMapper.selectById(dish.getCategoryId());
+                dish.setCategoryName(category.getName());
+                // 5.查询口味列表
+                // (1)封装口味的查询条件
+                LambdaQueryWrapper<DishFlavor> dishFlavorWrapper = new LambdaQueryWrapper<>();
+                dishFlavorWrapper.eq(DishFlavor::getDishId, dish.getId());
+                // (2)查询list
+                List<DishFlavor> dishFlavorList = dishFlavorMapper.selectList(dishFlavorWrapper);
+                // (3)封装到菜品对象中
+                dish.setFlavors(dishFlavorList);
+            }
+        }
+        return dishList; // 菜品（分类、口味）
     }
 
     /**
