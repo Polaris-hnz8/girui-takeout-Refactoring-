@@ -52,7 +52,22 @@ public class SetmealController {
     }
 
     /**
-     * 套餐删除
+     * 套餐起售与停售
+     * @param status
+     * @param ids
+     * @return
+     */
+    @PostMapping("/setmeal/status/{status}")
+    public ResultInfo updateStatus(@PathVariable Integer status, @RequestParam List<Long> ids){
+        // 1.调用service改变菜品状态
+        setmealService.updateStatus(status,ids);
+
+        // 2.返回成功消息
+        return ResultInfo.success(null);
+    }
+
+    /**
+     * 套餐批量删除
      * @param ids
      * @return
      */

@@ -15,6 +15,10 @@ public interface SetmealService {
     // 新增套餐
     void save(Setmeal setmeal);
 
+    // 套餐启售与停售
+    void updateStatus(Integer status, List<Long> ids);
+
     // 套餐删除
     void deleteBatchIds(List<Long> ids);
+
 }

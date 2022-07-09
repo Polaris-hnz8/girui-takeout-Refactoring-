@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.domain.Category;
+import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Setmeal;
 import com.itheima.reggie.domain.SetmealDish;
 import com.itheima.reggie.mapper.CategoryMapper;
@@ -107,6 +108,25 @@ public class SetmealServiceImpl implements SetmealService {
                 setmealDishMapper.insert(setmealDish);
             }
         }
+    }
+
+    /**
+     * 套餐的起售与停售
+     * @param status
+     * @param ids
+     */
+    @Override
+    public void updateStatus(Integer status, List<Long> ids) {
+        // 1.构造条件对象
+        LambdaQueryWrapper<Setmeal> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(Setmeal::getId, ids);
+
+        // 2.封装实体
+        Setmeal  setmeal = new Setmeal();
+        setmeal.setStatus(status);
+
+        // 3.调用mapper进行菜品状态更新
+        setmealMapper.update(setmeal, wrapper);
     }
 
     @Override
