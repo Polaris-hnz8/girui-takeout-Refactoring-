@@ -139,6 +139,21 @@ public class DishServiceImpl implements DishService {
     }
 
     /**
+     * 删除菜品
+     * @param ids
+     */
+    @Override
+    public void deleteBatchIds(List<Long> ids) {
+        // 1.先删除菜品
+        dishMapper.deleteBatchIds(ids);
+
+        // 2.再删除口味
+        LambdaQueryWrapper<DishFlavor> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(DishFlavor::getDishId, ids);
+        dishFlavorMapper.delete(wrapper);
+    }
+
+    /**
      * 根据分类id查询菜品列表
      * @param categoryId
      * @return
