@@ -27,5 +27,5 @@ reggie:
   sms:
     key: LTAI5tNmH22y9C7AxdFEgdNv
     secret: AHGC0JSnBuYtYg3BnNvyTuwlwyl27n
-    sign-name: 黑马旅游网
+    sign-name: 瑞吉外卖
     template-code: SMS_170836451
