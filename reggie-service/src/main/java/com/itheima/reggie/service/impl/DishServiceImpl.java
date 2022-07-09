@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Category;
 import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.DishFlavor;
@@ -16,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -151,6 +155,25 @@ public class DishServiceImpl implements DishService {
         LambdaQueryWrapper<DishFlavor> wrapper = new LambdaQueryWrapper<>();
         wrapper.in(DishFlavor::getDishId, ids);
         dishFlavorMapper.delete(wrapper);
+    }
+
+    /**
+     * 菜品的起售与停售
+     * @param status
+     * @param ids
+     */
+    @Override
+    public void updateStatus(Integer status, List<Long> ids) {
+        // 1.构造条件对象
+        LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(Dish::getId, ids);
+
+        // 2.封装实体
+        Dish dish = new Dish();
+        dish.setStatus(status);
+
+        // 3.调用mapper进行菜品状态更新
+        dishMapper.update(dish, wrapper);
     }
 
     /**

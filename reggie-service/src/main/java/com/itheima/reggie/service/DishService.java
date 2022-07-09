@@ -22,6 +22,10 @@ public interface DishService {
     // 菜品删除
     void deleteBatchIds(List<Long> ids);
 
+    // 菜品起售、停售
+    void updateStatus(Integer status, List<Long> ids);
+
     // 根据分类id查询菜品列表
     List<Dish> findListByCategoryId(Long categoryId);
+
 }
