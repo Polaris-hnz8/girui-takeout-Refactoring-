@@ -7,6 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 //订单
 @Data
@@ -43,4 +44,7 @@ public class Order implements Serializable {
 
     @TableField(exist = false)
     private String payUrl;//支付地址
+
+    @TableField(exist = false)
+    private List<OrderDetail> orderDetails;
 }
