@@ -12,6 +12,12 @@ public interface AddressService {
     //新增地址
     void save(Address address);
 
+    //地址回显
+    Address findById(Long id);
+
+    //修改地址
+    void update(Address address);
+
     //设置默认地址
     void setDefault(Long id);
 

@@ -3,6 +3,7 @@ package com.itheima.reggie.controller;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.ResultInfo;
 import com.itheima.reggie.domain.Address;
+import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,33 @@ public class AddressController {
 
         // 2.返回成功
         return ResultInfo.success(null);
+    }
+
+    /**
+     * 单个地址详情回显
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}") // 前面没有#
+    public ResultInfo findById(@PathVariable Long id) {
+        // 1.调用service查询
+        Address address = addressService.findById(id);
+        // 2.返回结果
+        return ResultInfo.success(address);
+    }
+
+    /**
+     * 修改地址
+     * @param address
+     * @return
+     */
+    @PutMapping
+    public ResultInfo update(@RequestBody Address address) {
+        // 1.调用service保存
+        addressService.update(address);
+
+        // 2.返回成功
+        return ResultInfo.success("修改成功");
     }
 
     /**

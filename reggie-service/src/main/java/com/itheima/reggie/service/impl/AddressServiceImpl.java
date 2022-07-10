@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.common.UserHolder;
 import com.itheima.reggie.domain.Address;
+import com.itheima.reggie.domain.Dish;
+import com.itheima.reggie.domain.DishFlavor;
 import com.itheima.reggie.mapper.AddressMapper;
 import com.itheima.reggie.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,28 @@ public class AddressServiceImpl implements AddressService {
 
         // 2.mapper保存
         addressMapper.insert(address);
+    }
+
+    /**
+     * 地址回显
+     * @param id
+     * @return
+     */
+    @Override
+    public Address findById(Long id) {
+        // 1.先查菜品基本信息
+        Address address = addressMapper.selectById(id);
+        return address;
+    }
+
+    /**
+     * 修改地址
+     * @param address
+     */
+    @Override
+    public void update(Address address) {
+        // mapper保存
+        addressMapper.updateById(address);
     }
 
     /**

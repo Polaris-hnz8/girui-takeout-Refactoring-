@@ -35,7 +35,7 @@
                    <span class="spanChecked" @click="form.sex = '0'">
                     <i :class="{iActive:form.sex === '0'}"></i>
                     女士
-                </span>
+                    </span>
                 </div>
                 <div class="divItem">
                     <span>手机号：</span> 
@@ -46,7 +46,7 @@
                     <el-input placeholder=" 请输入收货地址" v-model="form.detail"  maxlength='140'/></el-input>
                 </div>
                 <div class="divItem ">
-                    <span>标签：</span> 
+                    <span>标签：</span>
                     <span v-for="(item,index) in labelList" :key="index" @click="form.label = item;activeIndex = index" :class="{spanItem:true,spanActiveSchool:activeIndex === index}">{{item}}</span>
                 </div>
                 <div class="divSave" @click="saveAddress">保存地址</div>
@@ -81,7 +81,7 @@
                             '无','公司','家','学校'
                         ],
                         id:undefined,
-                        activeIndex :0
+                        activeIndex:0
                     }
                 },
                 computed:{},
@@ -102,6 +102,9 @@
                             const res = await addressFindOneApi(params.id)
                             if(res.code === 1){
                                 this.form = res.data
+                                for (var i = 0; res.data.label != this.labelList[i]; ++i) {
+                                    this.activeIndex = i + 1;
+                                }
                             }else{
                                 this.$notify({ type:'warning', message:res.msg});
                             }
