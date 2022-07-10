@@ -137,10 +137,75 @@ public class OrderServiceImpl implements OrderService {
                 LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.eq(User::getId, order.getUserId());
                 User user = userMapper.selectOne(queryWrapper);
-                // (3)封装到菜品对象中
+                // (3)封装到订单对象中
                 order.setUserName(user.getName());
             }
         }
-        return page; // 菜品（分类、口味）
+        return page;
     }
+
+    /**
+     * 移动端用户订单查询
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<Order> userOrdrePage(Integer pageNum, Integer pageSize) {
+        // 1.封装分页对象.
+        Page<Order> page = new Page<>(pageNum, pageSize);
+
+        // 2.查询该用户名下所有的订单信息
+        LambdaQueryWrapper<Order> orderWrapper = new LambdaQueryWrapper<>();
+        orderWrapper.eq(Order::getUserId, UserHolder.get().getId());
+        page = orderMapper.selectPage(page, orderWrapper);
+        //List<Order> orderList = orderMapper.selectList(orderWrapper);
+
+        // 3.查询每个订单信息下的订单详情
+        List<Order> orderList = page.getRecords();
+        if (CollectionUtil.isNotEmpty(orderList)) {
+            for (Order order : orderList) {
+                // 查询订单对应的订单内容明细OrderDetails并封装
+                LambdaQueryWrapper<OrderDetail> orderDetailWrapper = new LambdaQueryWrapper<>();
+                orderDetailWrapper.eq(OrderDetail::getOrderId, order.getId());
+                List<OrderDetail> orderDetailList = orderDetailMapper.selectList(orderDetailWrapper);
+                // 计算这笔订单的金额
+                BigDecimal amount = new BigDecimal(0);
+                for (OrderDetail orderDetail : orderDetailList) {
+                    amount = amount.add(orderDetail.getAmount().multiply(new BigDecimal(orderDetail.getNumber())));
+                }
+                // 封装到订单对象中
+                order.setAmount(amount);
+                order.setOrderDetails(orderDetailList);
+            }
+        }
+        return page;
+    }
+
+//    public Page<Dish> findByPage(Integer pageNum, Integer pageSize, String name) {
+//        // 1.查询菜品分页数据
+//        // (1)查询条件封装
+//        LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.like(StrUtil.isNotEmpty(name), Dish::getName, name);
+//        // (2)分页条件封装
+//        Page<Dish> page = new Page<>(pageNum, pageSize);
+//        // (3)执行mapper查询
+//        page = dishMapper.selectPage(page, wrapper);
+//
+//        // 2.遍历每一个菜品对象
+//        List<Dish> dishList = page.getRecords();
+//        if (CollectionUtil.isNotEmpty(dishList)) {
+//            for (Dish dish : dishList) {
+//                // 4.查询口味列表
+//                // (1)封装口味的查询条件
+//                LambdaQueryWrapper<DishFlavor> dishFlavorWrapper = new LambdaQueryWrapper<>();
+//                dishFlavorWrapper.eq(DishFlavor::getDishId, dish.getId());
+//                // (2)查询list
+//                List<DishFlavor> dishFlavorList = dishFlavorMapper.selectList(dishFlavorWrapper);
+//                // (3)封装到菜品对象中
+//                dish.setFlavors(dishFlavorList);
+//            }
+//        }
+//        return page; // 菜品（分类、口味）
+//    }
 }
