@@ -102,4 +102,18 @@ public class AddressController {
         // 2.返回成功
         return ResultInfo.success(address);
     }
+
+    /**
+     * 地址的批量逻辑删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public ResultInfo update(@RequestParam List<Long> ids) {
+        // 1.调用service进行逻辑删除
+        addressService.deleteBatchIds(ids);
+
+        // 2.返回成功
+        return ResultInfo.success("逻辑删除成功");
+    }
 }

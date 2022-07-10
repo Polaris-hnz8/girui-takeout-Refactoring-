@@ -23,4 +23,7 @@ public interface AddressService {
 
     //查询用户的默认收货地址（购物车结算时使用）
     Address findDefault();
+
+    //地址的批量逻辑删除
+    void deleteBatchIds(List<Long> ids);
 }
