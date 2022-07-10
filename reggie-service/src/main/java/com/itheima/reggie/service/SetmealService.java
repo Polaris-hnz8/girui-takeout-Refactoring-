@@ -3,6 +3,7 @@ package com.itheima.reggie.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.domain.Dish;
 import com.itheima.reggie.domain.Setmeal;
+import com.itheima.reggie.domain.SetmealDish;
 
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface SetmealService {
 
     // 套餐删除
     void deleteBatchIds(List<Long> ids);
+
+    // 移动端获取套餐中菜品详情
+    List<SetmealDish> getDishesBySetmealId(Long id);
 }

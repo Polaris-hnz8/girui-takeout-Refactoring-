@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.CustomException;
 import com.itheima.reggie.domain.*;
 import com.itheima.reggie.mapper.CategoryMapper;
+import com.itheima.reggie.mapper.DishMapper;
 import com.itheima.reggie.mapper.SetmealDishMapper;
 import com.itheima.reggie.mapper.SetmealMapper;
 import com.itheima.reggie.service.SetmealService;
@@ -21,6 +22,9 @@ import java.util.List;
 @Service
 @Transactional
 public class SetmealServiceImpl implements SetmealService {
+
+    @Autowired
+    private DishMapper dishMapper;
 
     @Autowired
     private SetmealMapper setmealMapper;
@@ -204,6 +208,33 @@ public class SetmealServiceImpl implements SetmealService {
         sdWrapper.in(SetmealDish::getSetmealId, ids);
         //（2）条件删除
         setmealDishMapper.delete(sdWrapper);
+    }
+
+    /**
+     * 套餐中菜品详情展示
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SetmealDish> getDishesBySetmealId(Long id) {
+        // 1.查询原始数据
+        LambdaQueryWrapper<SetmealDish> SetmealDishWrapper = new LambdaQueryWrapper<>();
+        SetmealDishWrapper.eq(id != null, SetmealDish::getSetmealId, id);
+        List<SetmealDish> setmealDishList = setmealDishMapper.selectList(SetmealDishWrapper);
+
+        //2.对额外需要使用的数据进行查询 并封装
+        if (CollectionUtil.isNotEmpty(setmealDishList)) {
+            for (SetmealDish setmealDish : setmealDishList) {
+                //（1）查询数据
+                LambdaQueryWrapper<Dish> dishWrapper = new LambdaQueryWrapper<>();
+                dishWrapper.eq(Dish::getId, setmealDish.getDishId());
+                Dish dish = dishMapper.selectOne(dishWrapper);
+                //（2）封装数据
+                setmealDish.setImage(dish.getImage());
+            }
+        }
+
+        return setmealDishList;
     }
 }
 

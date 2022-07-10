@@ -15,7 +15,12 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    // h5菜品展示
+    /**
+     * h5菜品展示
+     * @param categoryId
+     * @param status
+     * @return
+     */
     @GetMapping("/dish/list")
     public ResultInfo dishList(Long categoryId, Integer status) {// 1.接收参数
         // 2.调用service

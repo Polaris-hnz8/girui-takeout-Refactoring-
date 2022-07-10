@@ -137,10 +137,48 @@ public class OrderServiceImpl implements OrderService {
                 LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
                 queryWrapper.eq(User::getId, order.getUserId());
                 User user = userMapper.selectOne(queryWrapper);
-                // (3)封装到菜品对象中
+                // (3)封装到订单对象中
                 order.setUserName(user.getName());
             }
         }
-        return page; // 菜品（分类、口味）
+        return page;
+    }
+
+    /**
+     * 移动端用户订单查询
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<Order> userOrdrePage(Integer pageNum, Integer pageSize) {
+        // 1.封装分页对象.
+        Page<Order> page = new Page<>(pageNum, pageSize);
+
+        // 2.查询该用户名下所有的订单信息
+        LambdaQueryWrapper<Order> orderWrapper = new LambdaQueryWrapper<>();
+        orderWrapper.eq(Order::getUserId, UserHolder.get().getId());
+        page = orderMapper.selectPage(page, orderWrapper);
+        //List<Order> orderList = orderMapper.selectList(orderWrapper);
+
+        // 3.查询每个订单信息下的订单详情
+        List<Order> orderList = page.getRecords();
+        if (CollectionUtil.isNotEmpty(orderList)) {
+            for (Order order : orderList) {
+                // 查询订单对应的订单内容明细OrderDetails并封装
+                LambdaQueryWrapper<OrderDetail> orderDetailWrapper = new LambdaQueryWrapper<>();
+                orderDetailWrapper.eq(OrderDetail::getOrderId, order.getId());
+                List<OrderDetail> orderDetailList = orderDetailMapper.selectList(orderDetailWrapper);
+                // 计算这笔订单的金额
+                BigDecimal amount = new BigDecimal(0);
+                for (OrderDetail orderDetail : orderDetailList) {
+                    amount = amount.add(orderDetail.getAmount().multiply(new BigDecimal(orderDetail.getNumber())));
+                }
+                // 封装到订单对象中
+                order.setAmount(amount);
+                order.setOrderDetails(orderDetailList);
+            }
+        }
+        return page;
     }
 }
