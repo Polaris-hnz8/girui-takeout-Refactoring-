@@ -42,7 +42,7 @@ public class UserController {
         // 2.调用第三方接口发送
         log.info("手机号：{}    短信验证码：{}", phone, code);
         if (phone != null) {
-            SmsUtil.sendSms(phone, code);
+            //SmsUtil.sendSms(phone, code);
         }
 
         // 3.返回成功
