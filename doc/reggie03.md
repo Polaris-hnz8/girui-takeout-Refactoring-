@@ -12,25 +12,25 @@
 
  **① 菜品表:dish**
 
-![image-20210803235459347](assets/image-20210803235459347.png) 
+<img src="C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20210803235459347.png" alt="image-20210803235459347" style="zoom:80%;" /> 
 
 **② 菜品口味表:dish_flavor**
 
-![image-20210803235749393](assets/image-20210803235749393.png) 
+<img src="C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20210803235749393.png" alt="image-20210803235749393" style="zoom:80%;" /> 
 
 **③ 两表之间的关系**
 
-![image-20211106134736143](assets/image-20211106134736143.png) 
+![image-20211106134736143](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106134736143.png) 
 
 #### 前端核心代码
 
 >前端进入菜品页面之后，会向后台发送请求，查询菜品数据，请求中会携带参数：page、pageNum、name（不一定有值）
 
-![image-20211106140314192](assets/image-20211106140314192.png) 
+![image-20211106140314192](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106140314192.png) 
 
 
 
-![image-20220103084825672](assets/image-20220103084825672.png) 
+![image-20220103084825672](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103084825672.png) 
 
 #### 后台思路分析
 
@@ -40,13 +40,13 @@
 >SELECT * FROM `category` WHERE id = '1397844263642378242';-- 查询某个菜品的分类信息 
 >~~~
 
- ![image-20220103090829714](assets/image-20220103090829714.png)  
+ ![image-20220103090829714](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103090829714.png)  
 
 ### （2）后台代码
 
 #### 导入domain和mapper
 
-![image-20211106144903911](assets/image-20211106144903911.png) 
+![image-20211106144903911](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106144903911.png) 
 
 #### DishController
 
@@ -193,13 +193,14 @@ public class MybatisPlusConfig {
 
 在本套课程中选用阿里云的OSS服务进行图片存储。
 
-![image-20220103092628501](assets/image-20220103092628501.png) 
+![image-20220103092628501](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103092628501.png) 
 
 ### （2）阿里云OSS
 
 > 官网地址：https://www.aliyun.com/product/oss 
 >
-> ![image-20220103093958663](assets/image-20220103093958663.png) 
+
+> ![image-20220103093958663](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103093958663.png) 
 
 
 
@@ -207,7 +208,7 @@ public class MybatisPlusConfig {
 
 使用支付宝账户注册并绑定阿里云账户（实名认证）
 
-![image-20220102144701459](assets/image-20220102144701459.png)   
+![image-20220102144701459](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220102144701459.png)   
 
 #### 购买服务
 
@@ -218,29 +219,29 @@ oss需要我们付费的有两个地方:
 
 > 存储包，直接购买套餐
 
-![image-20201220145035466](assets/image-20201220145035466.png) 
+![image-20201220145035466](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20201220145035466.png) 
 
 > 流量包，上行流量是免费的，下行流量是按照访问量自动扣费的
 
- ![image-20201220145729088](assets/image-20201220145729088.png) 
+ ![image-20201220145729088](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20201220145729088.png) 
 
- 
 
 
 
 #### 创建存储空间
 
-![image-20201220150609060](assets/image-20201220150609060.png) 
+![image-20201220150609060](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20201220150609060.png) 
 
 #### 创建秘钥
 
-![image-20211106151746848](assets/image-20211106151746848.png) 
+![image-20211106151746848](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106151746848.png) 
 
 ####  api
 
 >https://help.aliyun.com/document_detail/84781.html?spm=a2c4g.11174283.6.946.425e7da24qVtmx
 >
->![image-20220103100729613](assets/image-20220103100729613.png) 
+
+>![image-20220103100729613](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103100729613.png) 
 
 ```java
 public class OssTest {
@@ -390,17 +391,17 @@ public class OssTemplateTest {
 
 >页面点击选择文件之后开始上传，后台接收文件后保存到阿里云，然后将访问地址返回
 
-![image-20211106155737570](assets/image-20211106155737570.png) 
+![image-20211106155737570](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106155737570.png) 
 
 虽然上述是ElementUI封装的代码，但是实际上最终还通过file域上传文件，如果未指定上传文件的参数名，默认为file。
 
-![image-20211106162606168](assets/image-20211106162606168.png) 
+![image-20211106162606168](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106162606168.png) 
 
 #### 后台代码编写
 
 >后台首先使用Spring的文件上传解析器接收上传的文件，然后将文件保存到阿里云，然后返回访问地址
 
-![image-20220103103719111](assets/image-20220103103719111.png) 
+![image-20220103103719111](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103103719111.png) 
 
 **① 配置文件上传解析器**
 
@@ -459,17 +460,17 @@ public class FileController {
 
 >前端进入菜品新增页面之后，会向后台发送请求，<font color='#BAOC2F'>首先查询菜品分类信息</font>
 
-![image-20211106215500337](assets/image-20211106215500337.png) 
+![image-20211106215500337](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106215500337.png) 
 
 
 
-![image-20220103105215204](assets/image-20220103105215204.png) 
+![image-20220103105215204](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103105215204.png) 
 
 #### 后台思路分析
 
 >后台接收参数type，然后根据type从数据表查询分类列表
 
-![image-20211106214551426](assets/image-20211106214551426.png) 
+![image-20211106214551426](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106214551426.png) 
 
 #### CategoryController
 
@@ -514,17 +515,17 @@ public List<Category> findByType(Integer type) {
 
 >当点击保存按钮之后，向后台发送请求
 
-![image-20211106220526594](assets/image-20211106220526594.png) 
+![image-20211106220526594](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106220526594.png) 
 
 
 
-![image-20220103110254684](assets/image-20220103110254684.png) 
+![image-20220103110254684](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103110254684.png) 
 
 #### 后台思路分析
 
 >后台接收请求之后，将数据分别保存到菜品表和菜品口味表
 
- ![image-20220103110706736](assets/image-20220103110706736.png) 
+ ![image-20220103110706736](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103110706736.png) 
 
 #### DishController
 
@@ -579,9 +580,9 @@ public void save(Dish dish) {
 
 >当用户进入修改页面之后，首先根据传入的菜品id，发送请求，查询回菜品详情
 
-![image-20211106230534218](assets/image-20211106230534218.png) 
+![image-20211106230534218](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106230534218.png) 
 
-![image-20220103113418628](assets/image-20220103113418628.png) 
+![image-20220103113418628](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103113418628.png) 
 
 
 
@@ -589,7 +590,7 @@ public void save(Dish dish) {
 
 >后台接收请求之后，根据菜品id分别从菜品表和菜品口味表查询信息，组装返回
 
-![image-20220103113648165](assets/image-20220103113648165.png) 
+![image-20220103113648165](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103113648165.png) 
 
 
 
@@ -639,9 +640,9 @@ public Dish findById(Long id) {
 
 >当在修改页面，填写完修改数据之后，点击保存按钮，进行修改
 
-![image-20211106232944161](assets/image-20211106232944161.png) 
+![image-20211106232944161](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20211106232944161.png) 
 
-![image-20220103115220840](assets/image-20220103115220840.png) 
+![image-20220103115220840](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103115220840.png) 
 
 
 
@@ -649,7 +650,8 @@ public Dish findById(Long id) {
 
 >后台接收请求之后，根据id分别更新菜品和口味
 >
->![image-20220103115422951](assets/image-20220103115422951.png) 
+
+>![image-20220103115422951](C:\Users\Polaris\AppData\Roaming\Typora\typora-user-images/image-20220103115422951.png) 
 
  
 
