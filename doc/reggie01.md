@@ -22,14 +22,16 @@
 
 >maven分模块   手画 
 
-![image-20211123101154630](assets\image-20211123101154630.png) 
+![image-20211123101154630](assets/image-20211123101154630.png) 
+
 ## 3.环境搭建
 
 ### （1）创建父工程
 
 > 在idea中创建maven项目，名称`reggie-parent`，删除src目录，并在pom.xml中引入依赖  
 
-![image-20211121123134764](assets\image-20211121123134764.png)  
+![image-20211121123134764](assets/image-20211121123134764.png)  
+
 ~~~xml
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -133,25 +135,32 @@
 
 >创建`reggie-domain`模块，用于存放实体类 
 
- ![image-20211123101449090](assets\image-20211123101449090.png) 
+ ![image-20211123101449090](assets/image-20211123101449090.png) 
+
+
 ### （3）创建工具类模块
 
 >创建`reggie-common`模块，用于存放通用的一些类，本模块需要依赖`reggie-domain`模块 
 
- ![image-20211123101536624](assets\image-20211123101536624.png) 
+ ![image-20211123101536624](assets/image-20211123101536624.png) 
+
 ### （4）创建持久层模块
 
 >创建`reggie-mapper`模块，用于存放持久层代码，本模块需要依赖`reggie-common`模块  
 
-![image-20211123101630787](assets\image-20211123101630787.png)  
+![image-20211123101630787](assets/image-20211123101630787.png)  
+
 ### （5）创建业务层模块
 
 >创建`reggie-service`模块，用于存放业务层代码，本模块需要依赖`reggie-mapper`模块 
 
-![image-20211121124952313](assets\image-20211121124952313.png) 
+![image-20211121124952313](assets/image-20211121124952313.png) 
+
 ### （6）创建表示层模块
 
->创建`reggie-web-manage`模块，用于存放管理后台的表示层代码，本模块需要依赖`reggie-service`模块 
+>创建`reggie-web-manage`模块，用于存放管理后台的表示层代码，本模块需要依赖`reggie-service`模块
+
+ ![image-20211124194142457](assets/image-20211124194142457.png) 
 
 ![image-20211124194142457](assets\image-20211124194142457.png) 
 ~~~xml
@@ -234,7 +243,7 @@ public class WebManageApplication {
 
 > 资料中已经提供好了本项目所需要的静态资源，只需要将其引入到项目的resources即可 
 
- ![image-20211121130221207](assets\image-20211121130221207.png) 
+ ![image-20211121130221207](assets/image-20211121130221207.png) 
 
 **④ 静态资源映射**
 
@@ -269,7 +278,7 @@ public class ReggieWebMvcConfig implements WebMvcConfigurer {
 > 本地启动工程，通过下面地址进行访问测试http://localhost:8080/backend/page/login/login.html
 >
 
-![image-20211031161702593](assets\image-20211031161702593.png)
+![image-20211031161702593](assets/image-20211031161702593.png)
 
 
 
@@ -281,11 +290,11 @@ public class ReggieWebMvcConfig implements WebMvcConfigurer {
 
 #### 前端核心代码  
 
-![image-20211103190637290](assets\image-20211103190637290.png) 
+![image-20211103190637290](assets/image-20211103190637290.png) 
 
 
 
-![image-20211229094053987](assets\image-20211229094053987.png) 
+![image-20211229094053987](assets/image-20211229094053987.png) 
 
 #### 后台思路分析
 
@@ -307,9 +316,13 @@ public class ReggieWebMvcConfig implements WebMvcConfigurer {
 >
 >因此后台专门准备了一个封装类似对象的类ResultInfo（资料中已经提供），后台直接返回这个对象即可
 >
->  ![image-20211121131606919](assets\image-20211121131606919.png)
->
->![image-20211229095427249](assets\image-20211229095427249.png)
+>![image-20211121131606919](assets/image-20211121131606919.png)  
+
+  
+
+![image-20211229095427249](assets/image-20211229095427249.png) 
+
+
 
 ### （2）代码编写
 
@@ -411,7 +424,7 @@ public class EmployeeController {
 
 **这里需要一个常量类，从资料中导入即可**
 
-![image-20211121132411928](assets\image-20211121132411928.png) 
+![image-20211121132411928](assets/image-20211121132411928.png) 
 
 #### EmployeeService
 
@@ -525,8 +538,8 @@ https://blog.csdn.net/yxl_1207/article/details/80973622
 
 >本项目主页面主要使用iframe实现
 >
+>![image-20211229103534609](assets/image-20211229103534609.png) 
 
->![image-20211229103534609](assets\image-20211229103534609.png) 
 
 ~~~html
 <!DOCTYPE html>
@@ -565,14 +578,14 @@ https://blog.csdn.net/yxl_1207/article/details/80973622
 
 #### 前端核心代码
 
-![image-20211103204619863](assets\image-20211103204619863.png)  
+![image-20211103204619863](assets/image-20211103204619863.png)  
 
 
 #### 后台思路分析
 
 >当点击退出按钮时，后台清理session中的用户信息，然后返回成功标识。
 
-![image-20211103205430849](assets\image-20211103205430849.png) 
+![image-20211103205430849](assets/image-20211103205430849.png) 
 
 
 ### （2）代码编写
@@ -598,13 +611,13 @@ public ResultInfo logout(){
 
 #### 数据模型(employee表)
 
-<img src="assets\image-20210726234915737.png" alt="image-20210726234915737" style="zoom:80%;" /> 
+<img src="assets/image-20210726234915737.png" alt="image-20210726234915737" style="zoom:80%;" /> 
 
 #### 前端核心代码
 
-![image-20211103230514453](assets\image-20211103230514453.png) 
+![image-20211103230514453](assets/image-20211103230514453.png) 
 
-![image-20211229105720997](assets\image-20211229105720997.png) 
+![image-20211229105720997](assets/image-20211229105720997.png) 
 
 
 
@@ -612,8 +625,7 @@ public ResultInfo logout(){
 
 >当`进入页面`或者`在搜索框输入员工姓名然后回车`的时候发起请求，查询回员工列表之后，将其渲染到页面表格中
 >
-
->![image-20211229110108664](assets\image-20211229110108664.png) 
+>![image-20211229110108664](assets/image-20211229110108664.png) 
 
 
 
@@ -673,7 +685,7 @@ List<Employee> findByName(String name);
 </select
 ~~~
 
-![image-20220621115531719](assets\image-20220621115531719.png)
+![image-20220621115531719](assets/image-20220621115531719.png)
 
 
 ## 4.访问拦截
@@ -686,11 +698,11 @@ List<Employee> findByName(String name);
 >
 > 这可以使用者拦截器来实现，在拦截器中判断用户是否已经登录，如果没有登录则返回提示信息，跳转到登录页面即可。
 
-![image-20210728000838992](assets\image-20210728000838992.png) 
+![image-20210728000838992](assets/image-20210728000838992.png) 
 
 
 
-![image-20211229114054341](assets\image-20211229114054341.png) 
+![image-20211229114054341](assets/image-20211229114054341.png) 
 
 
 ### （2）功能实现
@@ -701,7 +713,7 @@ List<Employee> findByName(String name);
 >
 >现在我们只关注响应的一段，里面有个判断，逻辑时当返回的code=0并且msg=NOTLOGINT时，它会清空浏览器存储的员工信息，然后跳转登录页面
 
-![image-20211103220606416](assets\image-20211103220606416.png) 
+![image-20211103220606416](assets/image-20211103220606416.png) 
 
 #### 开发拦截器
 
