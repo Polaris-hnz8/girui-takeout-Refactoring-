@@ -25,8 +25,8 @@ mybatis-plus:
 
 reggie:
   oss:
-    key: LTAI5tNavR1qMJ9C8CkCB6MP
-    secret: QwSbMRDzxf6tRCufLc69OcJJCUyA7O
+    key: yourKey
+    secret: youSecret
     endpoint: oss-cn-hangzhou.aliyuncs.com
     bucket: mains19
     url: https://mains19.oss-cn-hangzhou.aliyuncs.com
