@@ -16,7 +16,7 @@ Mybatis-Plus已经封装好了大量增删改查的方法，程序员只需要�
 - 支持主键自动生成（雪花、uuid）
 - 内置分页插件
 
-![image-20220102084440868](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102084440868.png) 
+![image-20220102084440868](assets/image-20220102084440868.png) 
 
 ## 2.入门案例
 
@@ -24,11 +24,11 @@ Mybatis-Plus已经封装好了大量增删改查的方法，程序员只需要�
 
 ### 选择数据环境
 
- ![image-20220102084900026](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102084900026.png) 
+ ![image-20220102084900026](assets/image-20220102084900026.png) 
 
 ### ORM映射
 
-![image-20220102090716838](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102090716838.png)  
+![image-20220102090716838](assets/image-20220102090716838.png)  
 
 
 
@@ -526,26 +526,25 @@ public class User {
 
 >而是使用一个标识列，将要删除的数据标识为删除状态（本质是执行了一条update语句）
 
-![image-20210801183459750](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20210801183459750.png) 
+![image-20210801183459750](assets/image-20210801183459750.png) 
 
 **①：在user表中添加逻辑删除标记字段,并设置默认值为1**
 
-![image-20220101193726095](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220101193726095.png)  
+![image-20220101193726095](assets/image-20220101193726095.png)  
 
-![image-20220102105909782](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102105909782.png) 
+![image-20220102105909782](assets/image-20220102105909782.png) 
 
 **②：实体类中添加对应字段，设定为当前字段为逻辑删除标记字段**
 
-![image-20220102110135032](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102110135032.png) 
+![image-20220102110135032](assets/image-20220102110135032.png) 
 
 **③ 删除其中一个用户观察效果**
 
-![image-20220102110300762](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102110300762.png) 
+![image-20220102110300762](assets/image-20220102110300762.png) 
 
  
 
 
 
-![image-20220102110511279](https://gitee.com/luochenhao_123/girui-takeout-Refactoring/raw/dev/v1.0.x/doc/assets/image-20220102110511279.png) 
-
+![image-20220102110511279](assets/image-20220102110511279.png) 
 
